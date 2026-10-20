@@ -178,7 +178,7 @@
       document.querySelector('#start-game')?.addEventListener('click',startGame);
       document.querySelector('#leave-room').onclick=cleanup;return;
     }
-    const current=room.current; const reveal=room.phase==='reveal'||room.phase==='finished';
+    const current=room.rounds?.[room.round]||room.current; const reveal=room.phase==='reveal'||room.phase==='finished';
     const localPlayer=Object.values(players).find(p=>p.id===myId);
     const alreadyAnswered=!!localPlayer?.answered;
     if(room.phase==='finished') {
