@@ -17,6 +17,11 @@
 
   let peer = null, host = false, myId = '', myName = '', code = '';
   let connections = new Map(), room = null, roundTimer = null, ticking = null;
+  function disconnectOnly() { clearTimeout(roundTimer);clearInterval(ticking);peer?.destroy();peer=null;connections.clear();room=null;host=false;myId=''; }
+  document.querySelector('#close').addEventListener('click',()=>{if(peer)disconnectOnly();},{capture:true});
+  document.querySelector('#modal').addEventListener('click',e=>{if(e.target.id==='modal'&&peer)disconnectOnly();},{capture:true});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&peer)disconnectOnly();},{capture:true});
+  window.addEventListener('beforeunload',()=>peer?.destroy());
   const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const clean = s => String(s ?? '').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]/g,'');
   const shuffle = xs => [...xs].sort(() => Math.random() - .5);
@@ -195,9 +200,8 @@
     document.querySelector('#typed-answer')?.addEventListener('keydown',e=>{if(e.key==='Enter')document.querySelector('#send-answer').click()});
   }
   function cleanup() {
-    clearTimeout(roundTimer);clearInterval(ticking);
     if(!host){const c=connections.get('host');if(c?.open)c.send({type:'leave'});}
-    peer?.destroy();peer=null;host=false;myId='';room=null;connections.clear();render();showEntry();
+    disconnectOnly();render();showEntry();
   }
 })();
 
