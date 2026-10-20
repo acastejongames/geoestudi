@@ -96,6 +96,10 @@
       .card,.answer,.room-answer,.primary,.secondary,.search-trigger,.resource-card{transition-duration:360ms}
     }
 
+  
+    .quiz-question,.room-question{animation:question-arrive 680ms cubic-bezier(.22,1,.36,1) both}
+    @keyframes question-arrive{from{opacity:0;transform:translateX(12px)}to{opacity:1;transform:translateX(0)}}
+
   </style>
 </head>
 <body>
