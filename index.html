@@ -66,6 +66,36 @@
     @media(max-width:850px){.hero{min-height:380px;padding:32px}.hero h1{font-size:clamp(42px,6vw,50px)}.resource-card{grid-template-columns:auto 1fr;gap:14px}.resource-link{grid-column:2;justify-self:start}}
     @media(max-width:560px){.hero{padding:27px 22px 18px}.hero h1{font-size:clamp(38px,10vw,46px)}.resource-card{grid-template-columns:auto 1fr;padding:17px}.resource-icon{width:44px;height:44px}.resource-link{grid-column:1/-1;justify-self:stretch;justify-content:space-between}.resource-card h3{font-size:19px}}
     @media(prefers-reduced-motion:reduce){.globe,.orbit,.sticker{animation:none!important}}
+  
+    /* Hover: a visible, slow pop-out with a small sideways drift. */
+    .card,.answer,.room-answer,.primary,.secondary,.search-trigger,.resource-card{
+      transition:transform 620ms cubic-bezier(.22,1,.36,1),border-color 420ms ease,background-color 420ms ease,filter 420ms ease;
+      will-change:transform;
+    }
+    .card:hover,.room-card:hover,.resource-card:hover{
+      transform:translate(8px,-5px) scale(1.025);
+      border-color:#9bc987;
+      box-shadow:none;
+      z-index:4;
+    }
+    .answer:hover,.room-answer:hover{
+      transform:translateX(9px) scale(1.018);
+      border-color:#9ecb8b;
+      background:#f0f8e9;
+      box-shadow:none;
+    }
+    .primary:hover,.secondary:hover,.search-trigger:hover{
+      transform:translate(5px,-2px) scale(1.025);
+      box-shadow:none;
+    }
+    .card:active,.answer:active,.room-answer:active,.primary:active,.secondary:active{
+      transform:translateX(2px) scale(.99);
+      transition-duration:140ms;
+    }
+    @media(prefers-reduced-motion:reduce){
+      .card,.answer,.room-answer,.primary,.secondary,.search-trigger,.resource-card{transition-duration:360ms}
+    }
+
   </style>
 </head>
 <body>
