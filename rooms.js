@@ -1,12 +1,16 @@
 /* Salas P2P amb PeerJS: el creador de la sala coordina les rondes. */
 (() => {
   const modeGrid = document.querySelector('#modes');
-  const modeCard = document.createElement('article');
-  modeCard.className = 'card mode room-card';
-  modeCard.dataset.mode = 'multiplayer';
+  let modeCard = modeGrid.querySelector('[data-mode="multiplayer"]');
+  if (!modeCard) {
+    modeCard = document.createElement('article');
+    modeCard.className = 'card mode';
+    modeCard.dataset.mode = 'multiplayer';
+    modeCard.innerHTML = '<div class="mode-icon">♟</div><h3>Sales multijugador</h3><p>Crea una sala amb codi. Omple buits, test, cert o fals i paraules llampec.</p>';
+    modeGrid.append(modeCard);
+  }
+  modeCard.classList.add('room-card');
   modeCard.style.setProperty('--accent', '#8dca91');
-  modeCard.innerHTML = '<div class="mode-icon">♟</div><h3>Sales multijugador</h3><p>Crea una sala amb codi. Omple buits, test, cert o fals i paraules llampec.</p>';
-  modeGrid.append(modeCard);
   modeGrid.addEventListener('click', event => {
     const card = event.target.closest('[data-mode="multiplayer"]');
     if (!card) return;
